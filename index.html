@@ -10,13 +10,25 @@
 </head>
 <body>
   <div id="app"></div>
+  <script src="//cdn.jsdelivr.net/npm/docsify-edit-on-github"></script>
   <script>
+    //https://github.com/231software/231Ldocs
+    const repo='231software/231Ldocs';
     window.$docsify = {
-      name: '',
-      repo: ''
+      search:'auto',
+      loadSidebar: true,
+      themeColor: '#60F5F5',
+      name: '新月国际服 - 玩家文档',
+      repo: repo,
+      plugins: [
+        EditOnGithubPlugin.create("https://github.com/"+repo+"/blob/main/", undefined, "📝编辑")
+      ]
     }
   </script>
   <!-- Docsify v4 -->
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-plugin-flexible-alerts/dist/docsify-plugin-flexible-alerts.min.js"></script>
 </body>
 </html>
