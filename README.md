@@ -29,16 +29,23 @@
 **如果不知道自己的电脑是什么系统，那只要不是苹果电脑就直接看这个**
 - Bilibili video
 - aid=556066182&bvid=BV1Xe4y1X7G7&cid=775465029&p=1
+
+
 #### macOS（苹果电脑）
 - Bilibili video
 - aid=446969950&bvid=BV1tj411z7xa&cid=1225241708&p=1
+
+
 #### 安卓
 - Bilibili video
 - aid=362090932&bvid=BV1N94y1k7AN&cid=1230210676&p=1
+
+
 #### iOS（苹果手机）
 - Bilibili video
 - aid=999162776&bvid=BV1Yx4y1X7UR&cid=1217038348&p=1
 - aid=1756208156&bvid=BV164421U7AN&cid=1604979041&p=1
+
 
 ### 进入服务器
 0. 如果你的界面是英文，而且你看不懂，那么点击主界面左下角**Options...**，然后点击**Language...**，然后往下翻就能找到**简体中文**了，点击之后别忘了点右下角的完成，游戏显示MOJANG的logo才算切换
