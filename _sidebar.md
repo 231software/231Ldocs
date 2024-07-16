@@ -1,5 +1,14 @@
 - [开始游戏](README)
 - [下载游戏](download)
 - [无法进入服务器](cannotconnect)
+- 插件使用教程
+  - Java版服务器
+    - [签到插件LiteSign](plugins/java/litesignin)
+    - [领地插件Residence](plugins/java/residence)
+  - 基岩版服务器
+- 常见问题
+  - Java版服务器
+    - [基岩进服无法合成物品](common_issues/java/geyser_cant_craft)
+  - 基岩版服务器
 - [注册231玩家社区](register_231_community)
 - [服务器性能相关问题](serverspec)
