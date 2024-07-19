@@ -5,6 +5,8 @@
   - Java版服务器
     - [签到插件LiteSign](plugins/java/litesignin)
     - [领地插件Residence](plugins/java/residence)
+    - [玩家互传插件SimpleTpa](plugins/java/simpletpa)
+    - [换肤](plugins/java/skinsrestorer)
   - 基岩版服务器
 - 常见问题
   - Java版服务器
