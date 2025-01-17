@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>新月国际服 - 玩家文档</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="Description">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+</head>
+<body>
+  <div id="app"></div>
+  <script src="//cdn.jsdelivr.net/npm/docsify-edit-on-github"></script>
+  <script>
+    //https://github.com/231software/231Ldocs
+    const repo='231software/231Ldocs';
+    window.$docsify = {
+      search:'auto',
+      loadSidebar: true,
+      themeColor: '#60F5F5',
+      name: '新月国际服 - 玩家文档',
+      repo: repo,
+      plugins: [
+        EditOnGithubPlugin.create("https://github.com/"+repo+"/blob/main/", undefined, "📝编辑")
+      ]
+    }
+  </script>
+  <!-- Docsify v4 插件-->
+  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+  <!-- 警告 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify-plugin-flexible-alerts/dist/docsify-plugin-flexible-alerts.min.js"></script>
+  <!-- 嵌入b站视频 -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify-bilibili@latest/bilibili.min.js"></script>
+  <!-- 侧边栏折叠 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/docsify-sidebar-collapse.min.js"></script>
+
+
+</body>
+</html>

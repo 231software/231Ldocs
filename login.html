@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="login.css">
+<title>登录</title>
+<script src="cookie.js"></script>
+<script src="websocket.js"></script>
+<script src="login.js"></script>
+</head>
+<body>
+    <div class="login-container">
+        <h2>登录</h2>
+        <form action="#">
+            <div class="input-group">
+                <label for="username">游戏ID，就是你在游戏里显示的名字</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">登录主城和暑假服使用的密码</label>
+                <label for="password">进入服务器的主城时有时要求输入/login 密码，下面输入的就是这个密码</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+        </form>
+        <button onclick="login()" type="submit">登录</button>
+    </div>
+</body>
+</html>
