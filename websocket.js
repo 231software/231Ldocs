@@ -1,9 +1,4 @@
 const server_address='ws://server.231l.net:16826'
-//如果网站正在使用https协议，就强制跳转到http协议
-if (location.protocol === 'https:') {
-    window.open('http://231l.net', '_blank');
-}
-
 let socket = new WebSocket(server_address);
 
 let connectionOpened=false
