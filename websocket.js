@@ -1,6 +1,14 @@
-const server_address='wss://frp-now.top:34939'
+const server_address='ws://server.231l.net:16826'
+//如果网站正在使用https协议，就强制跳转到http协议
+if (location.protocol === 'https:') {
+    location.href = location.href.replace('https:', 'http:');
+}
+
 let socket = new WebSocket(server_address);
+
 let connectionOpened=false
+
+
 class ServerEvents{
     static onLoginResult=(msg)=>{}
     static onWSOpen=(event)=>{}
@@ -30,10 +38,14 @@ class ServerEvents{
         }        
     }
 }
+socket.onerror=event=>{
+    //alert(server_address,event.constructor.name)
+}
 //连接建立成功时触发此函数
 socket.onopen =event=> {
     connectionOpened=true
     console.log('Connection opened');
+    //alert("websocket成功，连接已建立")
     // 接收到后端消息时触发
     socket.addEventListener("message", e=> {
         let parsedResult={}
@@ -48,8 +60,6 @@ socket.onopen =event=> {
     });
     ServerEvents.onWSOpen(event)
 };
-
-
 /*
 {
     "token":"1919810",
@@ -98,4 +108,26 @@ if(parseCookie("token")==undefined){
     document.cookie="token="+token+";SameSite=None;Secure=false"
 }
 
+async function checkIPv6() {
+    try {
+        const response = await fetch('https://6.ipw.cn');
+        
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const ipv6Address = await response.text();
+        
+        // 这里假设返回的内容是一个有效的IPv6地址，可以根据需要进一步验证地址格式
+        const ipv6Pattern = /^[0-9a-fA-F:]{2,39}$/;
+        return ipv6Pattern.test(ipv6Address);
+
+    } catch (error) {
+        console.error('Error fetching IPv6 address:', error);
+        return false;
+    }
+}
+
+// 使用函数
+//checkIPv6().then(result => console.log('IPv6 address fetch successful:', result));
 
