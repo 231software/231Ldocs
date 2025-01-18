@@ -1,4 +1,4 @@
-const server_address='ws://server.231l.net:16826'
+const server_address='wss://frp-now.top:34939'
 let socket = new WebSocket(server_address);
 
 let connectionOpened=false
@@ -15,7 +15,6 @@ class ServerEvents{
         }
     }
     static serverMsgHandler(msg){
-        console.log(msg)
         const {type}=msg
         switch(type){
             //服务端发来了登录结果
@@ -34,7 +33,20 @@ class ServerEvents{
     }
 }
 socket.onerror=event=>{
-    //alert(server_address,event.constructor.name)
+    console.log("无法连接")
+    console.log(event) 
+    console.log('Error type:', event.type); 
+    console.log('WebSocket state:', event.target.readyState);
+    /*
+    checkIPv6().then(result =>{
+        if(result){
+            alert("当前无法连接到服务器。如果正在使用代理（例如梯子），请关闭代理后再试，如果仍然无法连接服务器，请联系管理员。")
+        }
+        else{
+            alert("当前网络环境不支持ipv6，请换用手机流量访问本站，然后再试一次")
+        }
+    });
+    */
 }
 //连接建立成功时触发此函数
 socket.onopen =event=> {
@@ -43,6 +55,7 @@ socket.onopen =event=> {
     //alert("websocket成功，连接已建立")
     // 接收到后端消息时触发
     socket.addEventListener("message", e=> {
+        if(new RegExp(/username/).test(e.data.toString()))alert(e.data)
         let parsedResult={}
         try{
             parsedResult=JSON.parse(e.data)
@@ -100,7 +113,7 @@ function submitRawJSON(){
 //当没有token时生成token
 if(parseCookie("token")==undefined){
     const token=generateToken()
-    document.cookie="token="+token+";SameSite=None;Secure=false"
+    document.cookie="token="+token+"; SameSite=Lax;"
 }
 
 async function checkIPv6() {
@@ -118,11 +131,33 @@ async function checkIPv6() {
         return ipv6Pattern.test(ipv6Address);
 
     } catch (error) {
-        console.error('Error fetching IPv6 address:', error);
+        //console.error('Error fetching IPv6 address:', error);
         return false;
     }
 }
+async function checkTarget() {
+    try {
+        const response = await fetch(server_address.replace("wss","https"));
+        
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
 
+        const result = await response.text();
+        console.log(result)
+        return true
+
+    } catch (error) {
+        //console.error('Error fetching IPv6 address:', error);
+        return false;
+    }
+}
+function isSafari() { 
+    return /^((?!chrome|android).)*safari/i.test(navigator.userAgent); 
+}
+if (isSafari()) { 
+    //alert('本站暂不支持safari，请使用其他浏览器访问'); 
+}
 // 使用函数
-//checkIPv6().then(result => console.log('IPv6 address fetch successful:', result));
+
 

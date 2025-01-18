@@ -16,8 +16,8 @@ function login(){
     const username=document.getElementById("username").value
     const password=document.getElementById("password").value
     const token=parseCookie("token")
-    document.cookie="username="+username+";SameSite=None;Secure=false"
-    document.cookie="password="+password+";SameSite=None;Secure=false"
+    document.cookie="username="+username+"; SameSite=Lax;"
+    document.cookie="password="+password+"; SameSite=Lax;"
     sendData(JSON.stringify({
         username,
         password,
