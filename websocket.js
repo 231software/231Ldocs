@@ -201,10 +201,7 @@ function showBrowserCertificateBlockedPopup(){
     var popupContent = document.createElement('div');
     popupContent.innerHTML = `无法连接至服务器，这可能是您的网页设置有问题，或服务器网络出现问题<br>
 请进入这个网页：<a href='${userUnlockAPIURL}'>${userUnlockAPIURL}</a><br>
-跳转之后，如果一直完全打不开，证明服务器出现问题<br>
-如果显示当前网页有安全风险，证书无效过期等，无视风险继续访问，这个危险仅仅是警告网站的内容没有加密<br>
-如果加载成功，但是左上角只有一行不起眼的小字Upgrade Required，证明一切正常，返回本站刷新页面即可<br>
-如果都显示出了Upgrade Required但是还是有此弹窗，证明是网站源代码有bug，请加群716834424，说明你遇到的问题来寻求帮助<br>
+详细的操作步骤可以参考<a href='docs/#/cantaffordexpensivesslcert'>官网弹窗无法连接至服务器</a><br>
 `;
     popup.appendChild(popupContent);
 
