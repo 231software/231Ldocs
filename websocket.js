@@ -37,6 +37,7 @@ socket.onerror=event=>{
     console.log(event) 
     console.log('Error type:', event.type); 
     console.log('WebSocket state:', event.target.readyState);
+    showBrowserCertificateBlockedPopup()
     /*
     checkIPv6().then(result =>{
         if(result){
@@ -155,9 +156,58 @@ async function checkTarget() {
 function isSafari() { 
     return /^((?!chrome|android).)*safari/i.test(navigator.userAgent); 
 }
-if (isSafari()) { 
+// if (isSafari()) { 
     //alert('本站暂不支持safari，请使用其他浏览器访问'); 
-}
+// }
 // 使用函数
 
 
+function showBrowserCertificateBlockedPopup(){
+    // 创建遮罩层
+    var overlay = document.createElement('div');
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100%';
+    overlay.style.height = '100%';
+    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+    overlay.style.display = 'none';
+    overlay.style.justifyContent = 'center';
+    overlay.style.alignItems = 'center';
+    document.body.appendChild(overlay);
+
+    // 创建浮窗
+    var popup = document.createElement('div');
+    popup.style.backgroundColor = '#fff';
+    popup.style.padding = '20px';
+    popup.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.3)';
+    popup.style.position = 'relative';
+    overlay.appendChild(popup);
+
+    // 创建关闭按钮
+    // var closeButton = document.createElement('span');
+    // closeButton.innerHTML = '×';
+    // closeButton.style.position = 'absolute';
+    // closeButton.style.top = '10px';
+    // closeButton.style.right = '10px';
+    // closeButton.style.cursor = 'pointer';
+    // closeButton.onclick = function() {
+    //     overlay.style.display = 'none';
+    // };
+    // popup.appendChild(closeButton);
+
+    // 添加浮窗内容
+    var popupContent = document.createElement('div');
+    popupContent.innerHTML = `无法连接至服务器，这可能是您的网页设置有问题，或服务器网络出现问题<br>
+请进入这个网页：<a href='https://frp-now.top:34939'>https://frp-now.top:34939</a><br>
+跳转之后，如果一直完全打不开，证明服务器出现问题<br>
+如果显示当前网页有安全风险，证书无效过期等，无视风险继续访问，这个危险仅仅是警告网站的内容没有加密<br>
+如果加载成功，但是左上角只有一行不起眼的小字Upgrade Required，证明一切正常，返回本站刷新页面即可<br>
+如果都显示出了Upgrade Required但是还是有此弹窗，证明是网站源代码有bug，请加群716834424，说明你遇到的问题来寻求帮助<br>
+`;
+    popup.appendChild(popupContent);
+
+    // 显示浮窗
+    overlay.style.display = 'flex';
+
+}
