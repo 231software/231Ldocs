@@ -1,15 +1,24 @@
 ServerEvents.onLoginResult=(parsedResult)=>{
-    if(parsedResult.result===true){
-        location.href="userdashboard.html"
-    }
-    else if(parsedResult.result===false){
-        try{
-            alert("登录失败")
+    switch(parsedResult.result){
+        case 0:location.href="userdashboard.html";break;
+        case 1:{
+            try{
+                alert("密码错误")
+            }
+            catch(e){}
+            break;
         }
-        catch(e){}
-    }
-    else{
-        console.error("服务端发送了无效的登录结果："+parsedResult)
+        case 2:{
+            try{
+                alert("你还没有注册！请阅读 https://231l.net/docs/#/how_to_register 根据指引进行注册")
+            }
+            catch(e){}
+            break;
+        }
+        default:{
+            console.error("服务端发送了无效的登录结果："+parsedResult)
+            break;
+        }
     }
 }
 function login(){

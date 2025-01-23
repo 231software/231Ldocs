@@ -16,3 +16,6 @@ function deleteAllCookies() {
         document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
     }
 }
+//测试是否支持cookie
+document.cookie="testcookie=true;SameSite=Lax;"
+if(parseCookie("testcookie")==undefined)alert("网站目前无法正常工作，因为您当前的浏览器不支持cookie，或已经禁用cookie。")

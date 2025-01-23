@@ -1,3 +1,4 @@
+- <a href="../">⬅️返回官网主页</a>
 - [开始游戏](README)
 - [下载游戏](download)
 - [无法进入服务器](cannotconnect)
@@ -12,6 +13,7 @@
   - Java版服务器
     - [基岩进服无法合成物品](common_issues/java/geyser_cant_craft)
   - 基岩版服务器
+- [注册](how_to_register)
 - [官网弹窗无法连接至服务器](cantaffordexpensivesslcert)
 - [注册231玩家社区](register_231_community)
 - [服务器性能相关问题](serverspec)

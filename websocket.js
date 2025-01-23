@@ -1,7 +1,51 @@
-const server_address='wss://frp-now.top:34939'
-let socket = new WebSocket(server_address);
+let server_address=undefined
 
+let socket
 let connectionOpened=false
+
+getWSAddress().then(result=>{
+    server_address=result
+    socket = new WebSocket(server_address);
+    socket.onerror=event=>{
+        console.log("无法连接")
+        console.log(event) 
+        console.log('Error type:', event.type); 
+        console.log('WebSocket state:', event.target.readyState);
+        showBrowserCertificateBlockedPopup()
+        /*
+        checkIPv6().then(result =>{
+            if(result){
+                alert("当前无法连接到服务器。如果正在使用代理（例如梯子），请关闭代理后再试，如果仍然无法连接服务器，请联系管理员。")
+            }
+            else{
+                alert("当前网络环境不支持ipv6，请换用手机流量访问本站，然后再试一次")
+            }
+        });
+        */
+    }
+    //连接建立成功时触发此函数
+    socket.onopen =event=> {
+        connectionOpened=true
+        console.log('Connection opened');
+        //alert("websocket成功，连接已建立")
+        // 接收到后端消息时触发
+        socket.addEventListener("message", e=> {
+            if(new RegExp(/username/).test(e.data.toString()))alert(e.data)
+            let parsedResult={}
+            try{
+                parsedResult=JSON.parse(e.data)
+            }
+            catch(e){
+                console.log("服务器发送了破损的数据："+e)
+                return
+            }
+            ServerEvents.serverMsgHandler(parsedResult)
+        });
+        ServerEvents.onWSOpen(event)
+    };
+})
+
+
 
 
 class ServerEvents{
@@ -32,43 +76,7 @@ class ServerEvents{
         }        
     }
 }
-socket.onerror=event=>{
-    console.log("无法连接")
-    console.log(event) 
-    console.log('Error type:', event.type); 
-    console.log('WebSocket state:', event.target.readyState);
-    showBrowserCertificateBlockedPopup()
-    /*
-    checkIPv6().then(result =>{
-        if(result){
-            alert("当前无法连接到服务器。如果正在使用代理（例如梯子），请关闭代理后再试，如果仍然无法连接服务器，请联系管理员。")
-        }
-        else{
-            alert("当前网络环境不支持ipv6，请换用手机流量访问本站，然后再试一次")
-        }
-    });
-    */
-}
-//连接建立成功时触发此函数
-socket.onopen =event=> {
-    connectionOpened=true
-    console.log('Connection opened');
-    //alert("websocket成功，连接已建立")
-    // 接收到后端消息时触发
-    socket.addEventListener("message", e=> {
-        if(new RegExp(/username/).test(e.data.toString()))alert(e.data)
-        let parsedResult={}
-        try{
-            parsedResult=JSON.parse(e.data)
-        }
-        catch(e){
-            console.log("服务器发送了破损的数据："+e)
-            return
-        }
-        ServerEvents.serverMsgHandler(parsedResult)
-    });
-    ServerEvents.onWSOpen(event)
-};
+
 /*
 {
     "token":"1919810",
@@ -136,6 +144,26 @@ async function checkIPv6() {
         return false;
     }
 }
+async function getWSAddress() {
+    try {
+        const url=location.href
+        const urls=url.split("/")
+        const protocol=urls[0]
+        const host=urls[2]
+        const root=protocol+"//"+host
+        const response = await fetch(root+"/ws_address.txt");
+        
+        if (!response.ok) {
+            throw new Error('无法获取websocket地址');
+        }
+
+        return await response.text();
+
+    } catch (error) {
+        //console.error('Error fetching IPv6 address:', error);
+        return false;
+    }
+}
 async function checkTarget() {
     try {
         const response = await fetch(server_address.replace("wss","https"));
@@ -164,7 +192,7 @@ function isSafari() {
 
 function showBrowserCertificateBlockedPopup(){
     // 创建遮罩层
-    var overlay = document.createElement('div');
+    let overlay = document.createElement('div');
     overlay.style.position = 'fixed';
     overlay.style.top = '0';
     overlay.style.left = '0';
@@ -177,7 +205,7 @@ function showBrowserCertificateBlockedPopup(){
     document.body.appendChild(overlay);
 
     // 创建浮窗
-    var popup = document.createElement('div');
+    let popup = document.createElement('div');
     popup.style.backgroundColor = '#fff';
     popup.style.padding = '20px';
     popup.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.3)';
@@ -197,12 +225,15 @@ function showBrowserCertificateBlockedPopup(){
     // popup.appendChild(closeButton);
 
     // 添加浮窗内容
-    const userUnlockAPIURL=server_address.replace("wss","https")
-    var popupContent = document.createElement('div');
-    popupContent.innerHTML = `无法连接至服务器，这可能是您的网页设置有问题，或服务器网络出现问题<br>
-请进入这个网页：<a href='${userUnlockAPIURL}'>${userUnlockAPIURL}</a><br>
-详细的操作步骤可以参考<a href='docs/#/cantaffordexpensivesslcert'>官网弹窗无法连接至服务器</a><br>
-`;
+    const userUnlockAPIURL=server_address.replace("ws","http")
+    let popupContent = document.createElement('div');
+    popupContent.innerHTML = `无法连接至服务器，这可能是您的网络设置有问题，或服务器网络出现问题<br>
+请刷新页面重试<br>
+如果反复刷新页面仍然有此弹窗，证明服务器确实可能已停机，请联系管理员<br>
+    `
+//请进入这个网页：<a href='${userUnlockAPIURL}'>${userUnlockAPIURL}</a><br>
+//详细的操作步骤可以参考<a href='docs/#/cantaffordexpensivesslcert'>官网弹窗无法连接至服务器</a><br>
+;
     popup.appendChild(popupContent);
 
     // 显示浮窗
